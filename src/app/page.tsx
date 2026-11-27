@@ -1,12 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ChevronRight, FileText, Mail } from "lucide-react";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/posts";
+import { HeroSection } from "@/components/HeroSection";
 import { MotionReveal } from "@/components/MotionReveal";
 import { ProjectCard } from "@/components/ProjectCard";
-import { GitHubIcon } from "@/components/Icons";
 
 export default function HomePage() {
   const posts = getAllPosts();
@@ -14,101 +13,16 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-[980px] px-6">
-      {/* Hero Section */}
-      <section className="flex min-h-[calc(100dvh-3.5rem)] flex-col items-center justify-center py-24 text-center">
-        <MotionReveal y={10}>
-          <div className="mx-auto mb-7 flex justify-center">
-            <Image
-              src={siteConfig.avatar}
-              alt={siteConfig.englishName}
-              width={88}
-              height={88}
-              priority
-              className="h-22 w-22 rounded-full object-cover ring-1 ring-[var(--border-strong)] shadow-sm"
-            />
-          </div>
-
-          {siteConfig.overline && (
-            <p className="mb-4 font-mono text-[12px] tracking-[0.18em] uppercase text-[var(--muted)]">
-              {siteConfig.overline}
-            </p>
-          )}
-
-          <h1 className="text-[48px] font-semibold leading-[1.08] tracking-[-0.035em] text-[var(--foreground)] sm:text-[64px]">
-            {siteConfig.name}
-          </h1>
-          <p className="mt-2 text-[22px] font-normal tracking-[-0.02em] text-[var(--muted)] sm:text-[28px]">
-            {siteConfig.englishName}
-          </p>
-
-          {siteConfig.tagline && (
-            <p className="mx-auto mt-6 max-w-[540px] text-[17px] leading-relaxed text-[var(--muted)] sm:text-[19px]">
-              {siteConfig.tagline}
-            </p>
-          )}
-
-          {siteConfig.rolePills.length > 0 && (
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-2">
-              {siteConfig.rolePills.map((pill) => (
-                <span
-                  key={pill}
-                  className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3.5 py-1 text-[13px] text-[var(--muted)]"
-                >
-                  {pill}
-                </span>
-              ))}
-            </div>
-          )}
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
-            <a
-              href="#projects"
-              className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--cta-bg)] px-6 text-[14px] font-medium text-[var(--cta-fg)] transition-opacity duration-200 hover:opacity-85"
-            >
-              Selected Projects
-            </a>
-            <Link
-              href="/blog"
-              className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--background)] px-6 text-[14px] font-medium text-[var(--foreground)] transition-colors duration-200 hover:bg-[var(--surface)]"
-            >
-              Read Blog
-            </Link>
-          </div>
-
-          <div className="mt-8 flex items-center justify-center gap-6 text-[13px] text-[var(--muted)]">
-            <a
-              href={siteConfig.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
-            >
-              <GitHubIcon className="h-4 w-4" />
-              <span>GitHub</span>
-            </a>
-            <a
-              href={`mailto:${siteConfig.email}`}
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
-            >
-              <Mail className="h-4 w-4" strokeWidth={1.75} />
-              <span>Email</span>
-            </a>
-            <Link
-              href="/resume"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
-            >
-              <FileText className="h-4 w-4" strokeWidth={1.75} />
-              <span>Resume</span>
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-0.5 text-[var(--accent)] transition-opacity hover:underline hover:underline-offset-4"
-            >
-              About me
-              <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.75} />
-            </Link>
-          </div>
-        </MotionReveal>
-      </section>
+      <HeroSection
+        avatar={siteConfig.avatar}
+        name={siteConfig.name}
+        englishName={siteConfig.englishName}
+        overline={siteConfig.overline}
+        tagline={siteConfig.tagline}
+        rolePills={siteConfig.rolePills}
+        githubUrl={siteConfig.githubUrl}
+        email={siteConfig.email}
+      />
 
       {/* Overview & GitHub Contributions */}
       <section className="border-t border-[var(--border)] py-24">
