@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ChevronRight, Mail } from "lucide-react";
+import { ArrowUpRight, ChevronRight, FileText, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/posts";
@@ -92,6 +92,13 @@ export default function HomePage() {
               <Mail className="h-4 w-4" strokeWidth={1.75} />
               <span>Email</span>
             </a>
+            <Link
+              href="/resume"
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
+            >
+              <FileText className="h-4 w-4" strokeWidth={1.75} />
+              <span>Resume</span>
+            </Link>
             <Link
               href="/about"
               className="inline-flex items-center gap-0.5 text-[var(--accent)] transition-opacity hover:underline hover:underline-offset-4"

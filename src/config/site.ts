@@ -33,6 +33,7 @@ export const siteConfig = {
   navLinks: [
     { label: "Home", href: "/" },
     { label: "Blog", href: "/blog" },
+    { label: "Resume", href: "/resume" },
     { label: "About", href: "/about" },
   ] as NavItem[],
 

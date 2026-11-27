@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const baseUrl = siteConfig.siteUrl.replace(/\/$/, "");
 
-  const staticRoutes: MetadataRoute.Sitemap = ["", "/blog", "/about"].map(
+  const staticRoutes: MetadataRoute.Sitemap = ["", "/blog", "/resume", "/about"].map(
     (route) => ({
       url: `${baseUrl}${route}`,
       lastModified: new Date(),
