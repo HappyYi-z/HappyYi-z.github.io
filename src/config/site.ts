@@ -25,8 +25,8 @@ export const siteConfig = {
   closingQuote: "", // e.g. "Simplicity is the ultimate sophistication."
 
   // Social & Contact
-  githubUsername: "cysy10236-sketch",
-  githubUrl: "https://github.com/cysy10236-sketch",
+  githubUsername: "happy-yi-z",
+  githubUrl: "https://github.com/happy-yi-z",
   email: "zhangy2935@mail2.sysu.edu.cn",
 
   // Navigation
