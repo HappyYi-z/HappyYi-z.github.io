@@ -36,8 +36,6 @@ export const siteConfig = {
     { label: "About", href: "/about" },
   ] as NavItem[],
 
-  // Friends
-  friends: [
-    { name: "EastonJiang", url: "https://www.jiangxu.net/" },
-  ] as FriendLink[],
+  // Friends (add entries here to display the Friends column in the footer)
+  friends: [] as FriendLink[],
 } as const;

@@ -5,10 +5,16 @@ import { siteConfig } from "@/config/site";
 export function Footer() {
   const year = new Date().getFullYear();
 
+  const hasFriends = siteConfig.friends.length > 0;
+
   return (
     <footer className="mt-auto border-t border-[var(--border)] bg-[var(--surface)]/60">
       <div className="mx-auto max-w-[980px] px-6 py-14">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          className={`grid grid-cols-1 gap-10 sm:grid-cols-2 ${
+            hasFriends ? "lg:grid-cols-4" : "lg:grid-cols-3"
+          }`}
+        >
           <div className="space-y-3">
             <div className="flex items-center gap-2.5">
               <Image
@@ -45,25 +51,27 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="space-y-3">
-            <h3 className="text-[12px] font-semibold tracking-[0.06em] uppercase text-[var(--foreground)]">
-              Friends
-            </h3>
-            <ul className="space-y-2 text-[13px]">
-              {siteConfig.friends.map((friend) => (
-                <li key={friend.url}>
-                  <a
-                    href={friend.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
-                  >
-                    {friend.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {hasFriends && (
+            <div className="space-y-3">
+              <h3 className="text-[12px] font-semibold tracking-[0.06em] uppercase text-[var(--foreground)]">
+                Friends
+              </h3>
+              <ul className="space-y-2 text-[13px]">
+                {siteConfig.friends.map((friend) => (
+                  <li key={friend.url}>
+                    <a
+                      href={friend.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+                    >
+                      {friend.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="space-y-3">
             <h3 className="text-[12px] font-semibold tracking-[0.06em] uppercase text-[var(--foreground)]">
