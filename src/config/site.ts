@@ -14,7 +14,7 @@ export const siteConfig = {
   name: "张翼",
   englishName: "Yi Zhang",
   siteTitle: "Yi Zhang | Personal Site",
-  siteUrl: "https://cysy10236-sketch.github.io",
+  siteUrl: "https://zhangyi.online",
   avatar: "/avatar.jpg",
 
   // Bio & Tagline (intentionally left blank for you to customize anytime)
