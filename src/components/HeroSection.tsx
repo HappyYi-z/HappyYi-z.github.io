@@ -17,11 +17,11 @@ interface HeroSectionProps {
   email: string;
 }
 
-const SPRING_BOUNCE = {
+const GENTLE_SPRING = {
   type: "spring" as const,
-  stiffness: 260,
-  damping: 18,
-  mass: 0.9,
+  stiffness: 150,
+  damping: 14,
+  mass: 1.15,
 };
 
 const APPLE_EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -39,13 +39,34 @@ export function HeroSection({
   const shouldReduceMotion = useReducedMotion();
   const characters = Array.from(name);
 
+  const springItem = (delay: number) =>
+    shouldReduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 24, scale: 0.9 },
+          animate: { opacity: 1, y: 0, scale: 1 },
+          transition: {
+            ...GENTLE_SPRING,
+            delay,
+            opacity: { duration: 0.55, delay, ease: APPLE_EASE },
+          },
+        };
+
   return (
     <section className="flex min-h-[calc(100dvh-3.5rem)] flex-col items-center justify-center py-24 text-center">
       {/* Avatar */}
       <motion.div
-        initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.86, y: 12 }}
+        initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.85, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: APPLE_EASE }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                ...GENTLE_SPRING,
+                delay: 0.05,
+                opacity: { duration: 0.6, delay: 0.05, ease: APPLE_EASE },
+              }
+        }
         className="mx-auto mb-7 flex justify-center"
       >
         <Image
@@ -60,9 +81,9 @@ export function HeroSection({
 
       {overline && (
         <motion.p
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.08, ease: APPLE_EASE }}
+          transition={{ duration: 0.7, delay: 0.14, ease: APPLE_EASE }}
           className="mb-4 font-mono text-[12px] tracking-[0.18em] uppercase text-[var(--muted)]"
         >
           {overline}
@@ -80,17 +101,17 @@ export function HeroSection({
             initial={
               shouldReduceMotion
                 ? false
-                : { opacity: 0, y: 28, scale: 0.88, filter: "blur(6px)" }
+                : { opacity: 0, y: 30, scale: 0.86, filter: "blur(6px)" }
             }
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    ...SPRING_BOUNCE,
-                    delay: 0.14 + index * 0.1,
-                    opacity: { duration: 0.4, delay: 0.14 + index * 0.1 },
-                    filter: { duration: 0.45, delay: 0.14 + index * 0.1 },
+                    ...GENTLE_SPRING,
+                    delay: 0.22 + index * 0.18,
+                    opacity: { duration: 0.55, delay: 0.22 + index * 0.18 },
+                    filter: { duration: 0.6, delay: 0.22 + index * 0.18 },
                   }
             }
             className="inline-block"
@@ -102,13 +123,7 @@ export function HeroSection({
 
       {/* English Subtitle */}
       <motion.p
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.6,
-          delay: 0.36,
-          ease: APPLE_EASE,
-        }}
+        {...springItem(0.58)}
         className="mt-3 text-[20px] font-light tracking-[0.04em] text-[var(--muted)] sm:text-[24px]"
       >
         {englishName}
@@ -116,9 +131,7 @@ export function HeroSection({
 
       {tagline && (
         <motion.p
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.44, ease: APPLE_EASE }}
+          {...springItem(0.7)}
           className="mx-auto mt-6 max-w-[540px] text-[17px] leading-relaxed text-[var(--muted)] sm:text-[19px]"
         >
           {tagline}
@@ -127,9 +140,7 @@ export function HeroSection({
 
       {rolePills.length > 0 && (
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.48, ease: APPLE_EASE }}
+          {...springItem(0.78)}
           className="mt-7 flex flex-wrap items-center justify-center gap-2"
         >
           {rolePills.map((pill) => (
@@ -143,65 +154,81 @@ export function HeroSection({
         </motion.div>
       )}
 
-      {/* CTA Buttons */}
-      <motion.div
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.48, ease: APPLE_EASE }}
-        className="mt-10 flex flex-wrap items-center justify-center gap-3.5"
-      >
-        <a
+      {/* CTA Buttons (Staggered Spring Bounce) */}
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
+        <motion.a
           href="#projects"
-          className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--cta-bg)] px-6 text-[14px] font-medium text-[var(--cta-fg)] transition-opacity duration-200 hover:opacity-85"
+          {...springItem(0.76)}
+          whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.02 }}
+          whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+          className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--cta-bg)] px-6 text-[14px] font-medium text-[var(--cta-fg)] transition-opacity duration-200 hover:opacity-90"
         >
           Selected Projects
-        </a>
-        <Link
-          href="/blog"
-          className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--background)] px-6 text-[14px] font-medium text-[var(--foreground)] transition-colors duration-200 hover:bg-[var(--surface)]"
+        </motion.a>
+        <motion.div
+          {...springItem(0.9)}
+          whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.02 }}
+          whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
         >
-          Read Blog
-        </Link>
-      </motion.div>
+          <Link
+            href="/blog"
+            className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--border-strong)] bg-[var(--background)] px-6 text-[14px] font-medium text-[var(--foreground)] transition-colors duration-200 hover:bg-[var(--surface)]"
+          >
+            Read Blog
+          </Link>
+        </motion.div>
+      </div>
 
-      {/* Quick Links */}
-      <motion.div
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.56, ease: APPLE_EASE }}
-        className="mt-8 flex flex-wrap items-center justify-center gap-6 text-[13px] text-[var(--muted)]"
-      >
-        <a
+      {/* Quick Links (Staggered Spring Bounce) */}
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-[13px] text-[var(--muted)]">
+        <motion.a
           href={githubUrl}
           target="_blank"
           rel="noopener noreferrer"
+          {...springItem(1.04)}
+          whileHover={shouldReduceMotion ? undefined : { y: -2 }}
           className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
         >
           <GitHubIcon className="h-4 w-4" />
           <span>GitHub</span>
-        </a>
-        <a
+        </motion.a>
+
+        <motion.a
           href={`mailto:${email}`}
+          {...springItem(1.14)}
+          whileHover={shouldReduceMotion ? undefined : { y: -2 }}
           className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
         >
           <Mail className="h-4 w-4" strokeWidth={1.75} />
           <span>Email</span>
-        </a>
-        <Link
-          href="/resume"
-          className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
+        </motion.a>
+
+        <motion.div
+          {...springItem(1.24)}
+          whileHover={shouldReduceMotion ? undefined : { y: -2 }}
         >
-          <FileText className="h-4 w-4" strokeWidth={1.75} />
-          <span>Resume</span>
-        </Link>
-        <Link
-          href="/about"
-          className="inline-flex items-center gap-0.5 text-[var(--accent)] transition-opacity hover:underline hover:underline-offset-4"
+          <Link
+            href="/resume"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
+          >
+            <FileText className="h-4 w-4" strokeWidth={1.75} />
+            <span>Resume</span>
+          </Link>
+        </motion.div>
+
+        <motion.div
+          {...springItem(1.34)}
+          whileHover={shouldReduceMotion ? undefined : { y: -2 }}
         >
-          About me
-          <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.75} />
-        </Link>
-      </motion.div>
+          <Link
+            href="/about"
+            className="inline-flex items-center gap-0.5 text-[var(--accent)] transition-opacity hover:underline hover:underline-offset-4"
+          >
+            About me
+            <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.75} />
+          </Link>
+        </motion.div>
+      </div>
     </section>
   );
 }
