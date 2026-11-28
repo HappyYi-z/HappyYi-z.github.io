@@ -15,6 +15,11 @@
   --cta-bg: #1d1d1f;
   --cta-fg: #ffffff;
   --nav-bg: rgba(255, 255, 255, 0.72);
+  --sysu-green: #00561f;
+  --sysu-green-deep: #003e16;
+  --sysu-green-ink: #00561f;
+  --sysu-green-soft: rgba(0, 86, 31, 0.06);
+  --sysu-green-border: rgba(0, 86, 31, 0.22);
 }
 
 .dark {
@@ -30,6 +35,11 @@
   --cta-bg: #f5f5f7;
   --cta-fg: #1d1d1f;
   --nav-bg: rgba(0, 0, 0, 0.72);
+  --sysu-green: #072c15;
+  --sysu-green-deep: #041c0d;
+  --sysu-green-ink: #57c482;
+  --sysu-green-soft: rgba(87, 196, 130, 0.10);
+  --sysu-green-border: rgba(87, 196, 130, 0.24);
 }
 
 @theme inline {

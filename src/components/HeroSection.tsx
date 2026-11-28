@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ChevronRight, FileText, Mail } from "lucide-react";
+import { ChevronRight, FileText, GraduationCap, Mail } from "lucide-react";
 import { GitHubIcon } from "./Icons";
 
 interface HeroSectionProps {
@@ -208,6 +208,19 @@ export function HeroSection({
           whileHover={shouldReduceMotion ? undefined : { y: -2 }}
         >
           <Link
+            href="/campus"
+            className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--sysu-green-ink)]"
+          >
+            <GraduationCap className="h-4 w-4" strokeWidth={1.75} />
+            <span>SYSU</span>
+          </Link>
+        </motion.div>
+
+        <motion.div
+          {...springItem(1.34)}
+          whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+        >
+          <Link
             href="/resume"
             className="inline-flex items-center gap-1.5 transition-colors hover:text-[var(--accent)]"
           >
@@ -217,7 +230,7 @@ export function HeroSection({
         </motion.div>
 
         <motion.div
-          {...springItem(1.34)}
+          {...springItem(1.44)}
           whileHover={shouldReduceMotion ? undefined : { y: -2 }}
         >
           <Link
